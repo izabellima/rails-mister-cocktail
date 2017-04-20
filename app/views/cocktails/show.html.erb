@@ -1,0 +1,17 @@
+<div class="cocktail-display">
+    <h2><%= @cocktail.name %></h2>
+    <ul>
+    <% @cocktail.ingredients.each do |ingredient| %>
+    <li><%= ingredient.name %></li>
+    <% end %>
+    </ul>
+    <br>
+    <p><%= link_to 'edit', edit_cocktail_path %></p>
+    <p><%= link_to 'destroy', @cocktail, method: :delete  %></p>
+    <p><%= link_to 'add a cocktail', new_cocktail_path %></p>
+    <br>
+    <p><%= link_to 'back', cocktails_path %></p>
+
+</div>
+
+
