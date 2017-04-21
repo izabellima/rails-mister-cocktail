@@ -1,4 +1,4 @@
-class CocktailsController < ActionController::Base
+class CocktailsController < ApplicationController
   before_action :find_cocktail, only:[:show, :destroy, :edit, :update]
 
 
@@ -7,6 +7,8 @@ class CocktailsController < ActionController::Base
   end
 
   def show
+    @cocktail = Cocktail.find(params[:id])
+    @dose = Dose.new
   end
 
   def new
@@ -14,9 +16,13 @@ class CocktailsController < ActionController::Base
   end
 
   def create
-    @cocktail = Cocktail.new(strong_params)
-    cocktail.ingredients = @ingredients
-    cocktail.save
+    # @cocktail = Cocktail.new(strong_params)
+    # @cocktail.ingredients = @ingredients
+    # @cocktail.save
+    # redirect_to @cocktail
+    @cocktail = Cocktail.create(strong_params)
+    @cocktail.save
+
     redirect_to @cocktail
   end
 
@@ -28,6 +34,10 @@ class CocktailsController < ActionController::Base
   private
   def strong_params
     params.require(:cocktail).permit(:name)
+  end
+
+  def i_params
+    params.require(:ingredient).permit(:name)
   end
 
   def find_cocktail

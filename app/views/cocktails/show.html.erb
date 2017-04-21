@@ -1,16 +1,22 @@
 <div class="cocktail-display">
     <h2><%= @cocktail.name %></h2>
+
     <ul>
-    <% @cocktail.ingredients.each do |ingredient| %>
-    <li><%= ingredient.name %></li>
-    <% end %>
+      <% @cocktail.doses.each do |dose| %>
+        <li> <%= link_to dose.ingredient.name, ingredient_path(dose.ingredient) %> |
+        <em><%= dose.description %></em> |
+        <%= link_to "Delete", dose_path(dose), class: "label label-warning", method: :delete %>
+        </li>
+      <% end %>
     </ul>
-    <br>
-    <p><%= link_to 'edit', edit_cocktail_path %></p>
-    <p><%= link_to 'destroy', @cocktail, method: :delete  %></p>
-    <p><%= link_to 'add a cocktail', new_cocktail_path %></p>
-    <br>
-    <p><%= link_to 'back', cocktails_path %></p>
+
+    <%= link_to 'Back', cocktails_path %>
+
+    <%= simple_form_for [@cocktail, @dose] do |f| %>
+      <%= f.input :description, label: "How much liquor?" %>
+      <%= f.association :ingredient %>
+      <%= f.submit "Add Ingredient", class: "btn btn-danger" %>
+    <% end %>
 
 </div>
 

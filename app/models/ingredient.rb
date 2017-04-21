@@ -1,11 +1,5 @@
 class Ingredient < ApplicationRecord
-  before_destroy :check
-  has_many :doses, dependent: :destroy
-  validates :name, presence: :true, uniqueness: true
-
-
-  private
-  def check
-    return raise ActiveRecord::InvalidForeignKey unless self.doses.empty?
-  end
+  validates :name, presence: true, uniqueness: true
+  has_many :doses
+  has_many :cocktails, through: :doses
 end

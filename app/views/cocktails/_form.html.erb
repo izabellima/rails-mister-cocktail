@@ -1,7 +1,29 @@
-<div class="cocktail-form">
-  <h2>Add a new cocktail!</h2>
-  <%= simple_form_for @cocktail do |f| %>
-    <%= f.input :name %>
-    <%= f.submit "Go", class: "btn btn-primary" %>
-  <% end %>
-</div>
+<%= simple_form_for(@cocktail) do |f| %>
+  <%= f.input :name, placeholder: "mojito" %>
+  <%= f.button :submit, class: "btn btn-primary"  %>
+<% end %>
+
+
+<!-- dose controller
+
+new
+
+
+create
+@cocktail = Cocktail.find(params[:cocktail_id])
+@dose = Dose.new(dose_params)
+@dose.cocktail = @cocktail
+if @dose.sabe
+  redirect_to @cocktail
+else
+  render "cocktails/show"
+end
+
+dose_params
+params.require(:dose).permit(:description, :ingredient_id)
+destroy
+
+simple form for [@cocktail, @dose] do |f|
+f.input :description, label: “how much liquor”
+f.association :ingredient
+f.submit “add ingredient”, class ‘btn’ -->
